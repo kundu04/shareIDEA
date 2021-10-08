@@ -13,4 +13,8 @@ class Category extends Model
         'status'
         
     ];
+
+    public function relPost(){
+        return $this->hasMany(Post::class);
+    } 
 }

@@ -12,4 +12,7 @@ class Tag extends Model
         'name'
        
     ];
+    public function relPost(){
+        return $this->belongsToMany(Post::class);
+        } 
 }

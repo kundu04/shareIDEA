@@ -19,4 +19,20 @@ class Post extends Model
         'status'
         
     ];
+
+    public function relUser(){
+        return $this->belongsTo(User::class);
+    }
+
+    public function relCategory(){
+        return $this->belongsTo(Category::class);
+    } 
+
+    public function relComment(){
+        return $this->hasMany(Comment::class);
+    } 
+
+    public function relTag(){
+        return $this->belongsToMany(Tag::class);
+    } 
 }

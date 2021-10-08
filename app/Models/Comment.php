@@ -15,4 +15,8 @@ class Comment extends Model
         'status'
         
     ];
+
+    public function relPost(){
+        return $this->belongsTo(Post::class);
+    }
 }
