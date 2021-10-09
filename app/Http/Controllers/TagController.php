@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Tag;
 class TagController extends Controller
 {
     /**
@@ -13,7 +13,8 @@ class TagController extends Controller
      */
     public function index()
     {
-        //
+        $data['tags'] = Tag::all();
+        return view('admin/tag/index',$data);
     }
 
     /**
@@ -23,7 +24,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin/tag/create');
     }
 
     /**
@@ -34,7 +35,11 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $tag = new Tag();
+        $tag->name=$request->name;
+        $tag->save();
+        session()->flash('success','Tag stored successfully !');
+        return redirect()->route('tag.index');
     }
 
     /**
@@ -56,7 +61,8 @@ class TagController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data['tag'] = Tag::findOrFail($id);
+        return view('admin.tag.edit',$data);
     }
 
     /**
@@ -68,7 +74,11 @@ class TagController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $tag = Tag::findOrFail($id);
+        $tag->name=$request->name;
+        $tag->save();
+        session()->flash('success',' tag updated successfully !');
+        return redirect()->route('tag.index');
     }
 
     /**
@@ -79,6 +89,8 @@ class TagController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Tag::findOrFail($id)->delete();
+        session()->flash('success','Tag deleted successfully !');
+        return redirect()->route('tag.index');
     }
 }

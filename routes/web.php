@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\TagController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,3 +22,4 @@ Route::get('/dashboard', function () {
     return view('admin.dashboard');
 });
 Route::resource('category',CategoryController::class);
+Route::resource('tag',TagController::class);
