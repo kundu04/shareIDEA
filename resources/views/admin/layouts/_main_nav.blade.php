@@ -24,19 +24,19 @@
                 </a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="{{route('admin.index')}}">
                     <i class="material-icons">person</i>
                     <p>Admin</p>
                 </a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="{{route('category.index')}}">
                     <i class="material-icons">person</i>
                     <p>Category</p>
                 </a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="{{route('tag.index')}}">
                     <i class="material-icons">person</i>
                     <p>Tag</p>
                 </a>
