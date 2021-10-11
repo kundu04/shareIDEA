@@ -30,7 +30,7 @@ class Post extends Model
     }
 
     public function relCategory(){
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class,'category_id','id');
     } 
 
     public function relComment(){
@@ -38,6 +38,6 @@ class Post extends Model
     } 
 
     public function relTag(){
-        return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(Tag::class,'post_tag');
     } 
 }

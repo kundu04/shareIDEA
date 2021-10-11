@@ -15,6 +15,6 @@ class Tag extends Model
        
     ];
     public function relPost(){
-        return $this->belongsToMany(Post::class);
+        return $this->belongsToMany(Post::class,'post_tag');
         } 
 }
