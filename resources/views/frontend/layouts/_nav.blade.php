@@ -17,8 +17,13 @@
                             
                             @auth()
                             <?php $user_id = auth()->user()->id; ?>
+                            
                             <li><a href="{{route('profile',$user_id)}}" class="text-white">My Profile</a></li>
                             <li><a href="{{route('logout')}}" class="text-white">Logout</a></li>
+                            <form action="{{route('post.create')}}" method='get'>@csrf
+                                <input type="hidden" name='user_id' value='{{$user_id}}'>
+                                <li><input type="submit" value='Write a story'></li>
+                            </form>
                             @endauth
 							<!-- <li class="cat-3"><a href="category.html">Css</a></li>
 							<li class="cat-4"><a href="category.html">Jquery</a></li> -->

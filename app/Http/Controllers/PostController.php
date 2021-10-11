@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\Tag;
-
+use Auth;
 class PostController extends Controller
 {
     /**
@@ -25,8 +25,9 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $data['user_id']= $request->user_id;
         $data['categories']= Category::where('status','Active')->pluck('category_name','id');
         $data['tags']= Tag::pluck('name','id');
         return view('frontend.post.create',$data);
@@ -42,7 +43,7 @@ class PostController extends Controller
     {
         $post= new Post();
         $post->title= $request->title;
-        $post->user_id= 1;
+        $post->user_id= $request->user_id;
         $post->category_id= $request->category_id;
         $post->body= $request->body;
         $post->section= $request->section;
@@ -93,7 +94,7 @@ class PostController extends Controller
     {
         $post= Post::findOrFail($id);
         $post->title= $request->title;
-        $post->user_id= 1;
+        $post->user_id= Auth()->user()->id;
         $post->category_id= $request->category_id;
         $post->body= $request->body;
         $post->section= $request->section;

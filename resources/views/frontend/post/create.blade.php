@@ -4,7 +4,6 @@
         <div class="card">
             <div class="card-header card-header-primary">
                 <h4 class="card-title">Create Post</h4>
-                <p class="card-category">Create new post here</p>
             </div>
             <div class="card-body">
                 {{ Form::open(['route'=>'post.store','files'=>true]) }}
@@ -71,6 +70,9 @@
                     {{ Form::radio('status','Inactive',null) }} Inactive
                 </div>
             </div>
+            {!! Form::hidden('user_id', $user_id )!!}
+
+           
         </div>
                         {{ Form::submit('Store Post',['class'=>'btn btn-primary pull-right']) }}
                         <div class="clearfix"></div>
