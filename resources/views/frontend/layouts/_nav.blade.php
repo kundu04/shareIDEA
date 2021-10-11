@@ -9,12 +9,17 @@
 
 						<!-- nav -->
 						<ul class="nav-menu nav navbar-nav">
-							<li><a href="category.html">News</a></li>
-							<li><a href="category.html">Popular</a></li>
-							<li class="cat-1"><a href="category.html">Web Design</a></li>
-							<li class="cat-2"><a href="category.html">JavaScript</a></li>
-							<li class="cat-3"><a href="category.html">Css</a></li>
-							<li class="cat-4"><a href="category.html">Jquery</a></li>
+							<li><a href="">Story</a></li>
+                            @guest()
+							<li class="cat-1"><a href="{{route('register')}}">Create an account</a></li>
+							<li class="cat-2"><a href="{{route('login')}}">Login</a></li>
+                            @endguest
+                            @auth()
+                            <li><a href="{{route('profile')}}" class="text-white">My Profile</a></li>
+                            <li><a href="{{route('logout')}}" class="text-white">Logout</a></li>
+                            @endauth
+							<!-- <li class="cat-3"><a href="category.html">Css</a></li>
+							<li class="cat-4"><a href="category.html">Jquery</a></li> -->
 						</ul>
 						<!-- /nav -->
 

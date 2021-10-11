@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +28,10 @@ Route::resource('category',CategoryController::class);
 Route::resource('tag',TagController::class);
 Route::resource('admin',AdminController::class);
 Route::resource('post',PostController::class);
+
+Route::get('register',[AuthController::class,'showRegisterForm'])->name('register');
+Route::post('register',[AuthController::class,'processRegister']);
+Route::get('login',[AuthController::class,'showLoginForm'])->name('login');
+Route::post('login',[AuthController::class,'processLogin']);
+Route::get('logout',[AuthController::class,'logout'])->name('logout');
+Route::get('profile',[AuthController::class,'profile'])->name('profile');
