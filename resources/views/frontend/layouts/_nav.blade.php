@@ -14,8 +14,10 @@
 							<li class="cat-1"><a href="{{route('register')}}">Create an account</a></li>
 							<li class="cat-2"><a href="{{route('login')}}">Login</a></li>
                             @endguest
+                            
                             @auth()
-                            <li><a href="{{route('profile')}}" class="text-white">My Profile</a></li>
+                            <?php $user_id = auth()->user()->id; ?>
+                            <li><a href="{{route('profile',$user_id)}}" class="text-white">My Profile</a></li>
                             <li><a href="{{route('logout')}}" class="text-white">Logout</a></li>
                             @endauth
 							<!-- <li class="cat-3"><a href="category.html">Css</a></li>

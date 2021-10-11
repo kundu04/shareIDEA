@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
-
+use Auth;
 class AuthController extends Controller
 {
     public function showRegisterForm()
@@ -94,10 +94,70 @@ class AuthController extends Controller
         return redirect()->route('login');
 
     }
-    public function profile(){
-        return view('frontend.auth.profile');
+    public function profile($id){
+        $data['user'] = User::findOrFail($id);
+        return view('frontend.auth.profile',$data);
     }
 
+    public function editProfile($id){
+        $data['profile'] = User::findOrFail($id);
+        return view('frontend.auth.profile_edit',$data);
+    }
+    
+    public function updateProfile(Request $request,$id){
+        $validator = Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'min:11', 'numeric', 'unique:users,phone,'.Auth::user()->id.',id'],
+            'dob' => ['required'],
+            'gender' => ['required'],
+            'image'=>'mimes:jpg,jpeg,png',
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.Auth::user()->id.',id'],
+            'password' => ['required', 'string', 'min:8'],
+
+            
+        ]);
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        if ($request->hasFile('image')) {
+            $image= $request->file('image');
+            $image->move('images/auth',$image->getClientOriginalName());
+            $image_name= 'images/auth/'.$image->getClientOriginalName(); 
+        }
+        else{
+            $image_name= Auth()->user()->avater;
+        }
+       
+        try{
+            $user = User::findOrFail($id);
+            $user->update([
+                'name' => $request['name'],
+                'email' => $request['email'],
+                'type' => 'Client',
+                'phone' => $request['phone'],
+                'dob' => $request['dob'],
+                'gender' => $request['gender'],
+                'password' => bcrypt($request['password']),
+                'avater' => $image_name,
+
+
+           
+            ]);
+            
+            
+            session()->flash('type','success');
+            session()->flash('message','Information updated successfully!');
+            return redirect()->back();
+            
+        }
+        catch(Exception $e){
+            session()->flash('type','warning');
+            session()->flash('message',$e->getMessage());
+
+            
+        }
+        return redirect()->back();
+    }
     public function logout(){
         auth()->logout();
         return redirect('/');

@@ -34,4 +34,6 @@ Route::post('register',[AuthController::class,'processRegister']);
 Route::get('login',[AuthController::class,'showLoginForm'])->name('login');
 Route::post('login',[AuthController::class,'processLogin']);
 Route::get('logout',[AuthController::class,'logout'])->name('logout');
-Route::get('profile',[AuthController::class,'profile'])->name('profile');
+Route::get('profile/{id}',[AuthController::class,'profile'])->name('profile');
+Route::get('register/{id}',[AuthController::class,'editProfile'])->name('register.edit');
+Route::put('register/{id}',[AuthController::class,'updateProfile'])->name('register.update');
