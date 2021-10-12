@@ -3,6 +3,9 @@
 
    <!-- row -->
    <div class="row">
+	   @if(session()->has('success'))
+	   <button class="btn btn-success">{{session()->get('success')}}</button>
+	   @endif
 					<div class="col-md-12">
 						<div class="section-title">
 							<h2>Recent Posts</h2>

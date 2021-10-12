@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashBoardController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +20,7 @@ use App\Http\Controllers\DashBoardController;
 |
 */
 
-Route::get('/', function () {
-    return view('frontend.home');
-});
+Route::get('home',[HomeController::class,'index'])->name('home');
 
 Route::get('register',[AuthController::class,'showRegisterForm'])->name('register');
 Route::post('register',[AuthController::class,'processRegister']);

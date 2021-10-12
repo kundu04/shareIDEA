@@ -41,6 +41,14 @@
                     <p>Tag</p>
                 </a>
             </li>
+            
+            <li class="nav-item ">
+                <a class="nav-link" href="{{route('logout')}}">
+                    <i class="material-icons">person</i>
+                    <p>Logout</p>
+                </a>
+            </li>
+
         </ul>
     </div>
 </div>

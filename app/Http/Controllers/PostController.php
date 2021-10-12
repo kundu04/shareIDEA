@@ -55,7 +55,7 @@ class PostController extends Controller
         $post->save();
         $post->relTag()->sync($request->tags, false);
         session()->flash('success','Post stored successfully');
-        return redirect()->route('post.index');
+        return redirect()->route('home');
     }
 
     /**

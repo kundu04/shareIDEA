@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
+use App\Models\Post;
+
 use Auth;
 class AuthController extends Controller
 {
@@ -97,6 +99,7 @@ class AuthController extends Controller
     }
     public function profile($id){
         $data['user'] = User::findOrFail($id);
+        $data['stories'] = Post::where('status','Active')->where('user_id',$id)->get();
         return view('frontend.auth.profile',$data);
     }
 
