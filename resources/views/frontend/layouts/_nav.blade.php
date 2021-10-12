@@ -9,7 +9,7 @@
 
 						<!-- nav -->
 						<ul class="nav-menu nav navbar-nav">
-							<li><a href="">Story</a></li>
+							<li><a href="{{route('home')}}">Story</a></li>
                             @guest()
 							<li class="cat-1"><a href="{{route('register')}}">Create an account</a></li>
 							<li class="cat-2"><a href="{{route('login')}}">Login</a></li>

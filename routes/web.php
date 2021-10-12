@@ -8,6 +8,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashBoardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,7 @@ Route::get('register',[AuthController::class,'showRegisterForm'])->name('registe
 Route::post('register',[AuthController::class,'processRegister']);
 Route::get('login',[AuthController::class,'showLoginForm'])->name('login');
 Route::post('login',[AuthController::class,'processLogin']);
+Route::get('details/{id}',[PostController::class,'details'])->name('post.details');
 
 Route::middleware('auth')->group(function (){
     Route::get('logout',[AuthController::class,'logout'])->name('logout');
@@ -33,13 +35,15 @@ Route::middleware('auth')->group(function (){
     Route::get('register/{id}',[AuthController::class,'editProfile'])->name('register.edit');
     Route::put('register/{id}',[AuthController::class,'updateProfile'])->name('register.update');
     Route::resource('post',PostController::class);
+    Route::post('comment',[CommentController::class,'store'])->name('comment.store');
 
     Route::group(['prefix'=>'admin', 'middleware' => ['user_access_control']], function() {
        
-       Route::get('dashboard',[DashBoardController::class,'index'])->name('dashboard');
+        Route::get('dashboard',[DashBoardController::class,'index'])->name('dashboard');
         Route::resource('category',CategoryController::class);
         Route::resource('tag',TagController::class);
         Route::resource('admin',AdminController::class);
+
         
     
     });

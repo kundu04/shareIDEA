@@ -7,6 +7,8 @@ use App\Models\Post;
 use App\Models\Category;
 use App\Models\Tag;
 use Auth;
+use App\Models\Comment;
+
 class PostController extends Controller
 {
     /**
@@ -145,4 +147,13 @@ class PostController extends Controller
         return redirect()->route('dashboard');
         
     }
+
+    public function details($id)
+    {
+        $data['story'] = Post::where('status','Active')->where('id',$id)->first();
+        $data['comments'] = Comment::where('status','Listed')->get();
+        $data['total_comments'] = Comment::where('status','Listed')->count();
+        return view('frontend.details',$data);
+    }
+    
 }
