@@ -63,14 +63,7 @@
                     {{ Form::textarea('image_caption',$post->image_caption,['class'=>'form-control','cols'=>10,'required']) }}
                 </div>
             </div>
-            <div class="col-md-12">
-                <div class="form-group">
-                    {{ Form::label('status', 'Status',['class'=>'bmd-label-floating']) }}
-                    <br>
-                    {{ Form::radio('status','Active',null,['checked']) }} Active
-                    {{ Form::radio('status','Inactive',null) }} Inactive
-                </div>
-            </div>
+            
         </div>
                         {{ Form::submit('Update Post',['class'=>'btn btn-primary pull-right']) }}
                         <div class="clearfix"></div>

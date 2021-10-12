@@ -99,7 +99,7 @@ class AuthController extends Controller
     }
     public function profile($id){
         $data['user'] = User::findOrFail($id);
-        $data['stories'] = Post::where('status','Active')->where('user_id',$id)->get();
+        $data['stories'] = Post::where('user_id',$id)->latest()->get();
         return view('frontend.auth.profile',$data);
     }
 

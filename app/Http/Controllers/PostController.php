@@ -16,8 +16,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $data['posts']=Post::all();
-        return view('frontend.post.index',$data);
+        return abort(404);
     }
 
     /**
@@ -48,7 +47,7 @@ class PostController extends Controller
         $post->body= $request->body;
         $post->section= $request->section;
         $post->image_caption= $request->image_caption;
-        $post->status= $request->status;
+        $post->status= 'Active';
         $image= $request->file('image');
         $image->move('images/post',$image->getClientOriginalName());
         $post->image= 'images/post/'.$image->getClientOriginalName();      
@@ -99,7 +98,13 @@ class PostController extends Controller
         $post->body= $request->body;
         $post->section= $request->section;
         $post->image_caption= $request->image_caption;
-        $post->status= $request->status;
+        if($post->status == 'Inactive'){
+            $post->status= 'Inactive';
+        }
+        else{
+            $post->status= 'Active';
+        }
+        
 
         if($request->hasFile('image')) {
             if(file_exists(public_path($post->image)))
@@ -112,7 +117,11 @@ class PostController extends Controller
         }
         $post->save();
         session()->flash('success','Post updated successfully');
-        return redirect()->route('post.index');
+        if(Auth()->user()->type == 'Client'){
+            return redirect()->route('home');
+        }
+        return redirect()->route('dashboard');
+        
     }
 
     /**
@@ -130,6 +139,10 @@ class PostController extends Controller
         }
         $post->delete();
         session()->flash('success','Post deleted successfully');
-        return redirect()->route('post.index');
+        if(Auth()->user()->type == 'Client'){
+            return redirect()->route('home');
+        }
+        return redirect()->route('dashboard');
+        
     }
 }

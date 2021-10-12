@@ -42,8 +42,16 @@
                                 <p>{{$story->body}}</p>
                                 <h4>Section: </hr>
                                 <p>{{$story->section}}</p>
-                                
+                                @if($story->status == 'Inactive')
+                                <h5 style=background:red;>Inapropreate content! Unlisted by Admin!</h5>
+                                @endif
+
+                               
                             </div>
+                            <a href="{{ route('post.edit',$story->id) }}"><button class='btn btn-info'>Edit</button></a>
+                                        {{ Form::open(['route'=>['post.destroy',$story->id],'method'=>'DELETE']) }}
+                                            {{ Form::submit('Delete',['onclick'=>"return confirm('Are you confirm ?')"]) }}
+                                        {{ Form::close() }}
 						</div>
 					</div>
                
