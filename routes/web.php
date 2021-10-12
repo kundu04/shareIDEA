@@ -6,6 +6,7 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashBoardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,19 +22,27 @@ use App\Http\Controllers\AuthController;
 Route::get('/', function () {
     return view('frontend.home');
 });
-Route::get('/dashboard', function () {
-    return view('admin.dashboard');
-});
-Route::resource('category',CategoryController::class);
-Route::resource('tag',TagController::class);
-Route::resource('admin',AdminController::class);
-Route::resource('post',PostController::class);
 
 Route::get('register',[AuthController::class,'showRegisterForm'])->name('register');
 Route::post('register',[AuthController::class,'processRegister']);
 Route::get('login',[AuthController::class,'showLoginForm'])->name('login');
 Route::post('login',[AuthController::class,'processLogin']);
-Route::get('logout',[AuthController::class,'logout'])->name('logout');
-Route::get('profile/{id}',[AuthController::class,'profile'])->name('profile');
-Route::get('register/{id}',[AuthController::class,'editProfile'])->name('register.edit');
-Route::put('register/{id}',[AuthController::class,'updateProfile'])->name('register.update');
+
+Route::middleware('auth')->group(function (){
+    Route::get('logout',[AuthController::class,'logout'])->name('logout');
+    Route::get('profile/{id}',[AuthController::class,'profile'])->name('profile');
+    Route::get('register/{id}',[AuthController::class,'editProfile'])->name('register.edit');
+    Route::put('register/{id}',[AuthController::class,'updateProfile'])->name('register.update');
+    Route::resource('post',PostController::class);
+
+    Route::group(['prefix'=>'admin', 'middleware' => ['user_access_control']], function() {
+       
+       Route::get('dashboard',[DashBoardController::class,'index'])->name('dashboard');
+        Route::resource('category',CategoryController::class);
+        Route::resource('tag',TagController::class);
+        Route::resource('admin',AdminController::class);
+        
+    
+    });
+});
+

@@ -43,7 +43,7 @@ class PostController extends Controller
     {
         $post= new Post();
         $post->title= $request->title;
-        $post->user_id= $request->user_id;
+        $post->user_id= Auth()->user()->id;
         $post->category_id= $request->category_id;
         $post->body= $request->body;
         $post->section= $request->section;
