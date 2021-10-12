@@ -112,7 +112,7 @@ class AuthController extends Controller
             'gender' => ['required'],
             'image'=>'mimes:jpg,jpeg,png',
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.Auth::user()->id.',id'],
-            'password' => ['required', 'string', 'min:8'],
+            'password' => ['string', 'min:8'],
 
             
         ]);
@@ -127,7 +127,12 @@ class AuthController extends Controller
         else{
             $image_name= Auth()->user()->avater;
         }
-       
+       if($request->password == Auth()->user()->password){
+           $password = $request->password;
+       }
+       else{
+           $password = bcrypt($request->password);
+       }
         try{
             $user = User::findOrFail($id);
             $user->update([
@@ -137,7 +142,7 @@ class AuthController extends Controller
                 'phone' => $request['phone'],
                 'dob' => $request['dob'],
                 'gender' => $request['gender'],
-                'password' => bcrypt($request['password']),
+                'password' => $password,
                 'avater' => $image_name,
 
 
