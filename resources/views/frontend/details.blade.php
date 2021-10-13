@@ -104,7 +104,7 @@
 						<!-- catagories -->
 						<div class="aside-widget">
 							<div class="section-title">
-								<h3>Posted By: </h3>
+								<h3>Story Shared By: </h3>
 								<p>{{$story->relUser->name}}</p>
 							</div>
 						

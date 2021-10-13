@@ -18,7 +18,7 @@
                 </a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="{{route('dashboard.user')}}">
                     <i class="material-icons">person</i>
                     <p>User</p>
                 </a>

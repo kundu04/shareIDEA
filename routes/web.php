@@ -40,6 +40,9 @@ Route::middleware('auth')->group(function (){
     Route::group(['prefix'=>'admin', 'middleware' => ['user_access_control']], function() {
        
         Route::get('dashboard',[DashBoardController::class,'index'])->name('dashboard');
+        Route::get('user',[DashBoardController::class,'registered_user'])->name('dashboard.user');
+        Route::get('user/{id}',[DashBoardController::class,'block_user'])->name('block.user');
+
         Route::resource('category',CategoryController::class);
         Route::resource('tag',TagController::class);
         Route::resource('admin',AdminController::class);

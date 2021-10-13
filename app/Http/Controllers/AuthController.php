@@ -84,7 +84,7 @@ class AuthController extends Controller
         }
 
         $credentials = $request->only(['email','password']);
-        if(auth()->attempt($credentials)){
+        if(auth()->attempt($credentials) && auth()->user()->status == 'Active'){
             if(auth()->user()->type == 'Admin'){
                 return redirect()->intended('admin/dashboard');
             }
@@ -93,7 +93,7 @@ class AuthController extends Controller
         
 
         session()->flash('type','warning');
-        session()->flash('message','Invalid credentials');
+        session()->flash('message','Invalid User');
         return redirect()->route('login');
 
     }

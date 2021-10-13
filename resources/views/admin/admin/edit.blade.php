@@ -9,17 +9,17 @@
             <div class="card-body">
                 {!! Form::model($admin,['route' => ['admin.update',$admin->id],'method'=>'put']) !!}
                     <div class="form-group">
-                    {!! Form::label('name', 'Admin Name *') !!}
+                    {!! Form::label('name', 'Admin Name ') !!}
                         {!! Form::text('name', $admin->admin_name, ['class' =>'form-control']) !!}
                     </div>
 
                     <div class="form-group">
-                    {!! Form::label('email', 'Email*') !!}
+                    {!! Form::label('email', 'Email') !!}
                         {!! Form::email('email',null, ['class' =>'form-control','required']) !!}
                     </div>
 
                     <div class="form-group">
-                    {!! Form::label('password', 'Password*') !!}
+                    {!! Form::label('password', 'Password') !!}
                         {!! Form::password('password', ['class' =>'form-control','id'=>'password']) !!}
                     </div>
                     
