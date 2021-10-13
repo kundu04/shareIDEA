@@ -36,12 +36,14 @@ Route::middleware('auth')->group(function (){
     Route::put('register/{id}',[AuthController::class,'updateProfile'])->name('register.update');
     Route::resource('post',PostController::class);
     Route::post('comment',[CommentController::class,'store'])->name('comment.store');
+    Route::delete('comment/{id}',[CommentController::class,'destroy'])->name('comment.destroy');
 
     Route::group(['prefix'=>'admin', 'middleware' => ['user_access_control']], function() {
        
         Route::get('dashboard',[DashBoardController::class,'index'])->name('dashboard');
         Route::get('user',[DashBoardController::class,'registered_user'])->name('dashboard.user');
         Route::get('user/{id}',[DashBoardController::class,'block_user'])->name('block.user');
+        Route::get('post/{id}',[DashBoardController::class,'unlist_post'])->name('unlist.post');
 
         Route::resource('category',CategoryController::class);
         Route::resource('tag',TagController::class);

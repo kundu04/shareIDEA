@@ -3,55 +3,61 @@
     <div class="container-fluid">
        
         <div class="row">
+        @foreach($stories as $story)
             <div class="col-md-4">
                 <div class="card card-chart">
                     <div class="card-header card-header-success">
+                        {{$story->relUser->name}}
                         <div class="ct-chart" id="dailySalesChart"></div>
                     </div>
+                    <hr>
+                    <a class="post-img" href="#"><img src="{{asset($story->image)}}" alt="" height=200px width=210px></a>
+							
+							<p ><b> Caption: </b>{{$story->image_caption}}</p>
                     <div class="card-body">
-                        <h4 class="card-title">Daily Sales</h4>
+                        <h4 class="card-title">{{$story->title}}</h4>
                         <p class="card-category">
-                            <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.</p>
+                            <span class="text-success"><b>{{$story->relCategory->category_name}}</b></span>
+                         </p>
+                         <p class="card-category">
+                            <span class="text-success">Body: </span>
+                            {{$story->body}}
+                         </p>
+                         <p class="card-category">
+                            <span class="text-success">Section: </span>
+                            {{$story->section}}
+                         </p>
+                         <p class="card-category">
+                            <span class="text-success">Status: </span>
+                            {{$story->status}}
+                         </p>
+                         <div>
+                         <ul>
+								@foreach($story->relComment as $comment)
+
+									<li>{{$comment->body}} <b>by</b> {{$comment->relUser->name}}
+                                    {{ Form::open(['route'=>['comment.destroy',$comment->id],'method'=>'DELETE']) }}
+                                            {{ Form::submit('Delete',['onclick'=>"return confirm('Are you confirm ?')"]) }}
+                                        {{ Form::close() }}
+                                    </li>
+								@endforeach
+								</ul>
+                         </div>
                     </div>
+                    
                     <div class="card-footer">
+                        @if($story->status == 'Active')
+                        <a href="{{ route('unlist.post',$story->id) }}">Unlist</a>
+                   @endif
+
                         <div class="stats">
-                            <i class="material-icons">access_time</i> updated 4 minutes ago
+                            <i class="material-icons">access_time</i> {{ date("d M Y", strtotime($story->created_at))}}
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card card-chart">
-                    <div class="card-header card-header-warning">
-                        <div class="ct-chart" id="websiteViewsChart"></div>
-                    </div>
-                    <div class="card-body">
-                        <h4 class="card-title">Email Subscriptions</h4>
-                        <p class="card-category">Last Campaign Performance</p>
-                    </div>
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="material-icons">access_time</i> campaign sent 2 days ago
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card card-chart">
-                    <div class="card-header card-header-danger">
-                        <div class="ct-chart" id="completedTasksChart"></div>
-                    </div>
-                    <div class="card-body">
-                        <h4 class="card-title">Completed Tasks</h4>
-                        <p class="card-category">Last Campaign Performance</p>
-                    </div>
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="material-icons">access_time</i> campaign sent 2 days ago
-                        </div>
-                    </div>
-                </div>
-            </div>
+           
+           @endforeach
         </div>
         
     

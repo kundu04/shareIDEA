@@ -151,9 +151,11 @@ class PostController extends Controller
     public function details($id)
     {
         $data['story'] = Post::where('status','Active')->where('id',$id)->first();
-        $data['comments'] = Comment::where('status','Listed')->get();
-        $data['total_comments'] = Comment::where('status','Listed')->count();
+        $data['comments'] = Comment::where('status','Listed')->where('post_id',$id)->get();
+        $data['total_comments'] = Comment::where('status','Listed')->where('post_id',$id)->count();
         return view('frontend.details',$data);
     }
+
+    
     
 }

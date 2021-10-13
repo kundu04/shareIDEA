@@ -9,7 +9,7 @@ class DashBoardController extends Controller
 {
     public function index()
     {
-        $data['stories']= Post::all();
+        $data['stories']= Post::latest()->get();
         return view('admin.dashboard',$data);
     }
 
@@ -42,6 +42,15 @@ class DashBoardController extends Controller
         $user->save();
         return redirect()->back();
         
+    }
+    public function unlist_post($id)
+    {
+        $post = Post::findOrFail($id);
+        $post->status='Inactive';
+        $post->save();
+        session()->flash('success','Post unlisted successfully !');
+        return redirect()->back();
+
     }
 
     

@@ -18,6 +18,12 @@ class CommentController extends Controller
        session()->flash('success','Thanks for your comment!');
         return redirect()->route('post.details',$request->post_id);
     }
+    public function destroy($id)
+    {
+        Comment::findOrFail($id)->delete();
+        session()->flash('success','Comment deleted successfully !');
+        return redirect()->route('dashboard');
+    }
 
     
 }
