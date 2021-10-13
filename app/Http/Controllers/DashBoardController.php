@@ -22,6 +22,7 @@ class DashBoardController extends Controller
         if(isset($request->email)){
             $user=User::where('email','like','%'.$request->email.'%')->get();
         }
+        
         $data['users']=$user;
         return view('admin.user.index',$data);
 

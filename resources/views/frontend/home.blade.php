@@ -11,6 +11,28 @@
 							<h2>Recent Posts</h2>
 						</div>
 					</div>
+					<div class="row" >
+						
+                        {{ Form::model(request(),['method'=>'get']) }}
+						<div class="col-sm-3">
+							{{Form::text('title',null,['class'=>'form-control','placeholder'=>'search story title'])}}
+						</div>
+						<div class="col-sm-3">
+							{{Form::text('body',null,['class'=>'form-control','placeholder'=>'search story body'])}}
+						</div>
+						<div class="col-sm-2">
+							{{Form::text('section',null,['class'=>'form-control','placeholder'=>'search section'])}}
+						</div>
+						<div class="col-sm-2">
+							{{Form::text('tag',null,['class'=>'form-control','placeholder'=>'search tag'])}}
+						</div>
+                            
+                            <div class="col-sm-2">
+                                {{Form::submit('search',['class'=>'btn btn-warning'])}}
+                            </div>
+                            {{Form::close()}}
+                	</div>
+					<hr>
 				@foreach($stories as $story)
 					<!-- post -->
 					<div class="col-md-4">

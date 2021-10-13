@@ -19,7 +19,7 @@
                                 {{Form::submit('search',['class'=>'btn btn-warning'])}}
                             </div>
                             {{Form::close()}}
-                        </div>
+                </div>
             </div>
            
             <div class="card-body">
